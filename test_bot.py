@@ -4,11 +4,13 @@ from discord_slash.utils import manage_commands
 import pickle
 
 # Discord-Related
-TOKEN = 'ODE1NDI4OTI1MTExMDA5MzAx.YDsRXQ.xciiOGpmpO96GurzAAeOsiv03jA'
+with open('bot_token.txt', 'r') as file:
+    TOKEN = file.read().replace('\n', '')
+with open('server_ids.txt', 'r') as file:
+    GUILD_IDS = [int(x.strip()) for x in file.readlines()]
+print(GUILD_IDS)
 minluckBot = discord.Client()
 slash = SlashCommand(minluckBot, sync_commands=True)
-
-GUILD_IDS = [128389200071360513, 777746472594571294]
 
 # Constants
 POWERTYPES = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift']
