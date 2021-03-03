@@ -1,0 +1,5 @@
+*.json
+*.txt
+alias_dict
+base_dict
+minluck_dict
