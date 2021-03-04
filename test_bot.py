@@ -8,7 +8,7 @@ with open('bot_token.txt', 'r') as file:
     TOKEN = file.read().replace('\n', '')
 with open('server_ids.txt', 'r') as file:
     GUILD_IDS = [int(x.strip()) for x in file.readlines()]
-print(GUILD_IDS)
+print("GUILD IDS: " + str(GUILD_IDS))
 minluckBot = discord.Client()
 slash = SlashCommand(minluckBot, sync_commands=True)
 
@@ -37,16 +37,14 @@ async def on_ready():
     guild_ids=GUILD_IDS,
     description="Finds the minluck for a mouse")
 async def _minluck(ctx, breed):
-    try:
+    if breed.lower() in mouse_dict:
         mouse = mouse_dict[breed.lower()]
-    except KeyError:
-        try:
-            mouse = mouse_dict[alias_dict[breed.lower()].lower()]
-        except KeyError:
-            await ctx.send("This mouse does not exist. Check that it's spelt properly.")
-    powertypes = ", ".join(mouse.minluckPowerTypes)
-    await ctx.respond()
-    await ctx.send(f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}")
+        powertypes = ", ".join(mouse.minluckPowerTypes)
+        await ctx.respond()
+        await ctx.send(f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}")
+    else:
+        await ctx.respond()
+        await ctx.send(f"{breed} does not exist. It might be misspelled or it might not be in Seli's minluck sheet.")
 
 '''
 @slash.slash(
