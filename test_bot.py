@@ -1,6 +1,5 @@
 import discord
 from discord_slash import SlashCommand
-from discord_slash.utils import manage_commands
 import pickle
 
 # Discord-Related
@@ -27,6 +26,23 @@ filehandler.close()
 print("Alias dictionary successfully unpickled")
 
 
+def decode_alias(breed):
+    if breed.lower() in alias_dict:
+        return alias_dict[breed.lower()].lower()
+    else:
+        return breed.lower()
+
+
+# returns one of the strings in POWERTYPES
+def parse_powertype(powertype_to_parse):
+    if powertype_to_parse:
+        powertype_to_parse = powertype_to_parse.title()
+        for powertype in POWERTYPES:
+            if powertype == powertype_to_parse or powertype.startswith(powertype_to_parse):
+                return powertype
+    return None
+
+
 @minluckBot.event
 async def on_ready():
     print('Bot is ready')
@@ -36,32 +52,21 @@ async def on_ready():
     name="minluck",
     guild_ids=GUILD_IDS,
     description="Finds the minluck for a mouse")
-async def _minluck(ctx, breed):
-    if breed.lower() in mouse_dict:
-        mouse = mouse_dict[breed.lower()]
-        powertypes = ", ".join(mouse.minluckPowerTypes)
-        await ctx.respond()
-        await ctx.send(f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}")
-    else:
-        await ctx.respond()
-        await ctx.send(f"{breed} does not exist. It might be misspelled or it might not be in Seli's minluck sheet.")
-
-'''
-@slash.slash(
-    name="gminluck",
-    guild_ids=GUILD_IDS,
-    description="Finds the minluck for a group")
-async def _gminluck(ctx, group):
-    for mouse in groups_dict[group]:
-    try:
-        mouse = mouse_dict[breed.lower()]
-    except KeyError:
-        try:
-            mouse = mouse_dict[alias_dict[breed.lower()].lower()]
-        except KeyError:
-            await ctx.send("This mouse does not exist. Check that it's spelt properly.")
-    powertypes = ", ".join(mouse.minluckPowerTypes)
+async def _minluck(ctx, breed, powertype=None):
+    breed = decode_alias(breed)
+    message = f"{breed} is not a known mouse. It might be misspelled or it might not be in Seli's minluck sheet."
+    powertype = parse_powertype(powertype)
+    if powertype:  # if there was a powertype arguement provided
+        if breed in mouse_dict:
+            mouse = mouse_dict[breed.lower()]
+            powertype_minluck = mouse.minlucks[POWERTYPES.index(powertype)]
+            message = f"Minluck for __{mouse.breed}__ with {powertype} power: {powertype_minluck}"
+    else:  # if powertype = None, means look for all the minlucks
+        if breed in mouse_dict:
+            mouse = mouse_dict[breed.lower()]
+            powertypes = ", ".join(mouse.minluckPowerTypes)
+            message = f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}"
     await ctx.respond()
-    await ctx.send(f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}")
-'''
+    await ctx.send(message)
+
 minluckBot.run(TOKEN)
