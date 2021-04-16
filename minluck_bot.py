@@ -56,7 +56,7 @@ async def _minluck(ctx, breed, powertype=None):
     breed = decode_alias(breed)
     message = f"{breed} is not a known mouse. It might be misspelled or it might not be in Seli's minluck sheet."
     powertype = parse_powertype(powertype)
-    if powertype:  # if there was a powertype arguement provided
+    if powertype:  # if there was a powertype argument provided
         if breed in mouse_dict:
             mouse = mouse_dict[breed.lower()]
             powertype_minluck = mouse.minlucks[POWERTYPES.index(powertype)]
@@ -66,7 +66,6 @@ async def _minluck(ctx, breed, powertype=None):
             mouse = mouse_dict[breed.lower()]
             powertypes = ", ".join(mouse.minluckPowerTypes)
             message = f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}"
-    await ctx.respond()
     await ctx.send(message)
 
 minluckBot.run(TOKEN)
