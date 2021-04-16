@@ -2,7 +2,7 @@ import gspread
 from mouse import Mouse
 import pickle
 
-GOOGLE_SHEET_KEY = '1oNtGeOf9UqwTkQbvZ6MV974AfwDvIuuWMdLcLPR5swE'
+GOOGLE_SHEET_KEY = '13hKjNDFTFR3rTkmQzyi3d4ZDOlQJUvTfWPDQemmFW_Y'
 CREDENTIALS_FILENAME = 'credentials.json'
 
 worksheet = gspread.service_account(filename=CREDENTIALS_FILENAME).open_by_key(GOOGLE_SHEET_KEY).sheet1.get_all_values()[1:]
@@ -15,7 +15,7 @@ for breed in worksheet:
     mouse_minlucks[values[0].lower()] = Mouse(values[0], values[1], values[3], values[4:], values[2])
 print("Dictionary populated")
 
-filehandler = open('base_dict', 'wb')
+filehandler = open('base_dict', 'w+b')
 pickle.dump(mouse_minlucks, filehandler)
 filehandler.close()
 print("Dictionary Pickled")
