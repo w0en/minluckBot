@@ -13,6 +13,7 @@ slash = SlashCommand(minluckBot, sync_commands=True)
 
 # Constants
 POWERTYPES = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift']
+MOUSE_STRING = " mouse"
 
 # Dictionary Loading
 filehandler = open('minluck_dict', 'rb')
@@ -27,6 +28,8 @@ print("Alias dictionary successfully unpickled")
 
 
 def decode_alias(breed):
+    if breed.endswith(MOUSE_STRING):
+        breed.strip(MOUSE_STRING)
     if breed.lower() in alias_dict:
         return alias_dict[breed.lower()].lower()
     else:
