@@ -13,9 +13,10 @@ mouse_minlucks = {}
 for breed in worksheet:
     values = list(map(lambda x: None if x == '∞' or x == '' else x, breed))
     mouse_minlucks[values[0].lower()] = Mouse(values[0], values[1], values[3], values[4:], values[2])
+    # Name, Group, Power, Minlucks by Powertype (list), Subgroup
 print("Dictionary populated")
 
-filehandler = open('base_dict', 'w+b')
+filehandler = open('minluck_dict', 'w+b')
 pickle.dump(mouse_minlucks, filehandler)
 filehandler.close()
 print("Dictionary Pickled")
