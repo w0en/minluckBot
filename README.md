@@ -17,6 +17,7 @@ Now, you can just paste the link in your browser, and an invite link will pop up
 ### Running the Bot
 First you must run **update_minluck_dict.py**. This generates a dictionary of all the mice and their minlucks, saved in the **base_dict** binary file. 
 The code should automatically create this file, there is no need for you to make it yourself. 
+Running this file requires you to make a service account in google, an alternative method is expected to not require this in the future
 
 At this stage you can introduce your own **alias_dict** file, another dictionary in a raw binary format that contains any aliases you want the bot to recognize. You can add these in yourself. Just set the key as the nickname and the value as the name of the mouse (as spelt in the minluck sheet, lowercase).
 
