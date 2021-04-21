@@ -14,6 +14,7 @@ slash = SlashCommand(minluckBot, sync_commands=True)
 # Constants
 POWERTYPES = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift']
 MOUSE_STRING = " mouse"
+INFINITE_MINLUCK_RETURN_VALUE = "\u221E"
 
 # Dictionary Loading
 filehandler = open('minluck_dict', 'rb')
@@ -63,8 +64,10 @@ async def _minluck(ctx, breed, powertype=None):
         if breed in mouse_dict:
             mouse = mouse_dict[breed.lower()]
             powertype_minluck = mouse.minlucks[POWERTYPES.index(powertype)]
+            if powertype_minluck == 999999:  # comment out the if-statement if you want it to show 999999
+                powertype_minluck = INFINITE_MINLUCK_RETURN_VALUE
             message = f"Minluck for __{mouse.breed}__ with {powertype} power: {powertype_minluck}"
-    else:  # if powertype = None, means look for all the minlucks
+    else:  # if powertype == None, means look for all the minlucks
         if breed in mouse_dict:
             mouse = mouse_dict[breed.lower()]
             powertypes = ", ".join(mouse.minluckPowerTypes)
