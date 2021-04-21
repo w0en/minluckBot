@@ -4,8 +4,8 @@ Bot that gives minluck values for a mouse/group of mice for MouseHunt.
 ### Cloning
 Do the usual cloning of the repository. There are no sub-folders; any files you create go into the parent directory.
 ### Bot Setup
-You'll want to go into https://discord.com/developers/applications and create a new Application. 
-Populate the general information tab with whatever you want under the _General Information_ tab, and then head over to the _Bot_ tab.
+You'll want to go into https://discord.om/developers/applications and create a new Application. 
+Populate whatever you want under the _General Information_ tab, and then head over to the _Bot_ tab.
 
 In the _Bot_ tab, you'll want to generate a token and save it to a text file you'll create called **bot_token.txt**.
 This token is used by **minluck_bot.py** to actually run and authenticate the bot.
@@ -31,3 +31,6 @@ Usage: /minluck breed: XXX type: XXX
 This is currently the only command implemented. It takes in 1 mandatory and 1 optional argument.
 The breed brings up the minluck of the mouse requested.
 The type specifies the power type to look for, if unspecified simply looks through and returns all power types that have the lowest minluck.
+
+## Things to note
+- If you want to restrict access to specific channels on the server, the easiest way to go is to restrict the channels the bot role has access to, rather than implement it here which would require you to figure out Channel IDs and a whole lot of technical mishmash.
