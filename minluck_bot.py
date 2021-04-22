@@ -30,7 +30,7 @@ print("Alias dictionary successfully unpickled")
 
 def decode_alias(breed):
     if breed.endswith(MOUSE_STRING):
-        breed.strip(MOUSE_STRING)
+        breed.removesuffix(MOUSE_STRING)
     if breed.lower() in alias_dict:
         return alias_dict[breed.lower()].lower()
     else:
@@ -52,26 +52,26 @@ async def on_ready():
     print('Bot is ready')
 
 
-@slash.slash(
-    name="minluck",
-    guild_ids=GUILD_IDS,
-    description="Finds the minluck for a mouse")
-async def _minluck(ctx, breed, powertype=None):
-    breed = decode_alias(breed)
-    message = f"{breed} is not a known mouse. It might be misspelled or it might not be in Seli's minluck sheet."
-    powertype = parse_powertype(powertype)
-    if powertype:  # if there was a powertype argument provided
-        if breed in mouse_dict:
-            mouse = mouse_dict[breed.lower()]
-            powertype_minluck = mouse.minlucks[POWERTYPES.index(powertype)]
-            if powertype_minluck == 999999:  # comment out the if-statement if you want it to show 999999
-                powertype_minluck = INFINITE_MINLUCK_RETURN_VALUE
-            message = f"Minluck for __{mouse.breed}__ with {powertype} power: {powertype_minluck}"
-    else:  # if powertype == None, means look for all the minlucks
-        if breed in mouse_dict:
-            mouse = mouse_dict[breed.lower()]
-            powertypes = ", ".join(mouse.minluckPowerTypes)
-            message = f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}"
-    await ctx.send(message)
+    @slash.slash(
+        name="minluck",
+        guild_ids=GUILD_IDS,
+        description="Finds the minluck for a mouse")
+    async def _minluck(ctx, breed, powertype=None):
+        breed = decode_alias(breed)
+        message = f"{breed} is not a known mouse. It might be misspelled or it might not be in Seli's minluck sheet."
+        powertype = parse_powertype(powertype)
+        if powertype:  # if there was a powertype argument provided
+            if breed in mouse_dict:
+                mouse = mouse_dict[breed.lower()]
+                powertype_minluck = mouse.minlucks[POWERTYPES.index(powertype)]
+                if powertype_minluck == 999999:  # comment out the if-statement if you want it to show 999999
+                    powertype_minluck = INFINITE_MINLUCK_RETURN_VALUE
+                message = f"Minluck for __{mouse.breed}__ with {powertype} power: {powertype_minluck}"
+        else:  # if powertype == None, means look for all the minlucks
+            if breed in mouse_dict:
+                mouse = mouse_dict[breed.lower()]
+                powertypes = ", ".join(mouse.minluckPowerTypes)
+                message = f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}"
+        await ctx.send(message)
 
 minluckBot.run(TOKEN)
