@@ -35,3 +35,7 @@ The type specifies the power type to look for, if unspecified simply looks throu
 
 ## Things to note
 - If you want to restrict access to specific channels on the server, the easiest way to go is to restrict the channels the bot role has access to, rather than implement it here which would require you to figure out Channel IDs and a whole lot of technical mishmash.
+
+## Technical Specifications
+- Written in **Python 3.9.4**
+- Uses **discord-py-slash-command 1.1.2**
