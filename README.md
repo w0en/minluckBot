@@ -33,6 +33,7 @@ This is currently the only command implemented. It takes in 1 mandatory and 1 op
 The breed brings up the minluck of the mouse requested.
 The type specifies the power type to look for, if unspecified simply looks through and returns all power types that have the lowest minluck.
 
+If the string " mouse" is found at the end of the command, it's removed using Python's **removesuffix** string method. Currently not in earlier versions of Python, but can be replicated with str[0:-x] where x is the length of the suffix you want to remove.
 ## Things to note
 - If you want to restrict access to specific channels on the server, the easiest way to go is to restrict the channels the bot role has access to, rather than implement it here which would require you to figure out Channel IDs and a whole lot of technical mishmash.
 
