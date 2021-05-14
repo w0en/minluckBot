@@ -29,8 +29,7 @@ print("Alias dictionary successfully unpickled")
 
 
 def decode_alias(breed):
-    if breed.endswith(MOUSE_STRING):
-        breed.removesuffix(MOUSE_STRING)
+    breed = breed.removesuffix(MOUSE_STRING)
     if breed.lower() in alias_dict:
         return alias_dict[breed.lower()].lower()
     else:
@@ -38,7 +37,7 @@ def decode_alias(breed):
 
 
 # returns one of the strings in POWERTYPES
-def parse_powertype(powertype_to_parse):
+def parse_powertype_argument(powertype_to_parse):
     if powertype_to_parse:
         powertype_to_parse = powertype_to_parse.title()
         for powertype in POWERTYPES:
@@ -59,7 +58,7 @@ async def on_ready():
     async def _minluck(ctx, breed, powertype=None):
         breed = decode_alias(breed)
         message = f"{breed} is not a known mouse. It might be misspelled or it might not be in Seli's minluck sheet."
-        powertype = parse_powertype(powertype)
+        powertype = parse_powertype_argument(powertype)
         if powertype:  # if there was a powertype argument provided
             if breed in mouse_dict:
                 mouse = mouse_dict[breed.lower()]
@@ -72,6 +71,7 @@ async def on_ready():
                 mouse = mouse_dict[breed.lower()]
                 powertypes = ", ".join(mouse.minluckPowerTypes)
                 message = f"Minluck for __{mouse.breed}__: {mouse.minluck}\nPower Type(s): {powertypes}"
+        print(message)
         await ctx.send(message)
 
 minluckBot.run(TOKEN)
