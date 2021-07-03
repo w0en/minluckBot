@@ -9,7 +9,6 @@ print("Alias dictionary loaded")
 print("Current dictionary:")
 pprint.pprint(alias_dict)
 
-
 def add_alias(dictionary):
     key = input("Add a alias:")
     value = input("Now add the mouse this is an alias for:")
