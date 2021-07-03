@@ -4,7 +4,7 @@ Bot that gives minluck values for a mouse/group of mice for MouseHunt.
 ### Cloning
 Do the usual cloning of the repository. There are no sub-folders; any files you create go into the parent directory.
 ### Bot Setup
-You'll want to go into https://discord.om/developers/applications and create a new Application. 
+You'll want to go into https://discord.com/developers/applications and create a new Application. 
 Populate whatever you want under the _General Information_ tab, and then head over to the _Bot_ tab.
 
 In the _Bot_ tab, you'll want to generate a token and save it to a text file you'll create called **bot_token.txt**.
